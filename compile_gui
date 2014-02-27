@@ -1,0 +1,1 @@
+pyside-uic scriptLattesGUI.ui  -o scriptLattesGUI.py && python main.py
