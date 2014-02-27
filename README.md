@@ -1,7 +1,10 @@
 scriptLattesGUI
 ===============
 
-Interface gráfica e instalador Windows para o ScriptLattes (<http://scriptlattes.sourceforge.net/code.html>).
+Interface gráfica e instalador Windows para o [ScriptLattes][1]
+[1]: http://scriptlattes.sourceforge.net/code.html
+
+[Baixar versão do Windows][2]
 
 Adaptação no arquivo .config
 ============================
@@ -24,8 +27,9 @@ O scriptLattesGUI sempre irá procurar os caminhos a partir do arquivo **".confi
 Binário no Windows
 ==================
 
-O instalador contendo todos os requisitos pode ser baixado em Releases.
+O instalador contendo todos os requisitos pode ser baixado em [Release Beta 1][2].
 
+[2]: https://github.com/rfaga/scriptlattesgui/releases/tag/beta1
 
 Instruções para Linux
 =====================
