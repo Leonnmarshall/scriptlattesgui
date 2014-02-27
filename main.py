@@ -7,12 +7,12 @@
 #  http://github.com/rfaga/scriptlattesgui
 #
 #
-#  Este programa é um software livre; você pode redistribui-lo e/ou 
-#  modifica-lo dentro dos termos da Licença Pública Geral GNU como 
-#  publicada pela Fundação do Software Livre (FSF); na versão 2 da 
+#  Este programa é um software livre; você pode redistribui-lo e/ou
+#  modifica-lo dentro dos termos da Licença Pública Geral GNU como
+#  publicada pela Fundação do Software Livre (FSF); na versão 2 da
 #  Licença, ou (na sua opinião) qualquer versão.
 #
-#  Este programa é distribuído na esperança que possa ser util, 
+#  Este programa é distribuído na esperança que possa ser util,
 #  mas SEM NENHUMA GARANTIA; sem uma garantia implicita de ADEQUAÇÂO a qualquer
 #  MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a
 #  Licença Pública Geral GNU para maiores detalhes.
@@ -37,11 +37,12 @@ class ControlMainWindow(QtGui.QMainWindow):
         self.ui.out.insertPlainText('Aguardando entrada de dados...')
         self.ui.filechooser.clicked.connect(self.choose_file)
         self.ui.runner.clicked.connect(self.run)
-        
+        self.setWindowIcon(QtGui.QIcon('logo.png'))
+
         last_file = self.settings.value('lastFile', None)
         if last_file:
             self.ui.input.setPlainText(last_file)
-        
+
     def print_text(self):
         s = str(self.process.readAllStandardOutput())
         try:
@@ -49,16 +50,16 @@ class ControlMainWindow(QtGui.QMainWindow):
         except:
             pass
         self.ui.out.insertPlainText( s )
-        
+
     def print_error(self):
         msg = "<br><p style='color: red; font-weight: bold'>%s</p>" % str(self.process.readAllStandardError()).replace('\n', '<br>')
         self.ui.errors.insertHtml(msg)
-    
+
     def clearOutputs(self):
         self.ui.out.setPlainText('');
         self.ui.errors.setPlainText('');
         self.ui.statusbar.clearMessage()
-    
+
     def finished(self):
         self.ui.runner.setDisabled(False)
         self.ui.runner.setText('Executar')
@@ -73,7 +74,11 @@ class ControlMainWindow(QtGui.QMainWindow):
         self.process.readyReadStandardError.connect(self.print_error)
         self.process.finished.connect(self.finished)
         filepath = self.ui.input.toPlainText()
-        self.process.start('./runner.py',[filepath])
+        if 'win' in sys.platform.lower():
+            cmd = 'runner.bat'
+        else:
+            cmd = './runner.py'
+        self.process.start(cmd,[filepath])
 
     def choose_file(self):
         last_file = self.settings.value('lastFile', None)
@@ -86,7 +91,7 @@ class ControlMainWindow(QtGui.QMainWindow):
         path = filename[0]
         self.settings.setValue('lastFile',  path)
         self.ui.input.setPlainText(path)
-   
+
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     mySW = ControlMainWindow()
