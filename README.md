@@ -27,9 +27,9 @@ O scriptLattesGUI sempre irá procurar os caminhos a partir do arquivo **".confi
 Binário no Windows
 ==================
 
-O instalador contendo todos os requisitos pode ser baixado em [Release Beta 1][2].
+O instalador contendo todos os requisitos pode ser baixado em [Releases][2].
 
-[2]: https://github.com/rfaga/scriptlattesgui/releases/tag/beta1
+[2]: https://github.com/rfaga/scriptlattesgui/releases/latest
 
 Instruções para Linux
 =====================

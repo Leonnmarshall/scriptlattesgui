@@ -86,9 +86,9 @@ def copy_files(dir):
 	shutil.copy2(base + 'imagens'+SEP+'lattesPoint3.png', dir)
 	shutil.copy2(base + 'imagens'+SEP+'lattesPoint_shadow.png', dir)
 	shutil.copy2(base + 'imagens'+SEP+'doi.png', dir)
+	print "Arquivos salvos em: >>'%s'<<" % os.path.abspath(dir)
 
 if __name__ == "__main__":
-	print sys.argv
 	arquivoConfiguracao = sys.argv[1]
 	os.chdir( os.path.abspath(os.path.join(arquivoConfiguracao, os.pardir)))
 	novoGrupo = Grupo(arquivoConfiguracao)

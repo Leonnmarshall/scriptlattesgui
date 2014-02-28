@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'scriptLattesGUI.ui'
 #
-# Created: Thu Feb 27 13:43:00 2014
+# Created: Fri Feb 28 11:17:41 2014
 #      by: pyside-uic 0.2.13 running on PySide 1.1.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -67,7 +67,7 @@ class Ui_MainWindow(object):
         self.scrollOutput.setWidgetResizable(True)
         self.scrollOutput.setObjectName("scrollOutput")
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 887, 628))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 887, 595))
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -92,7 +92,7 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName("scrollArea_2")
         self.scrollAreaWidgetContents_2 = QtGui.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 887, 628))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 887, 595))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.verticalLayout_5 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
@@ -105,6 +105,20 @@ class Ui_MainWindow(object):
         self.tabs.addTab(self.error_tab, "")
         self.verticalLayout_2.addWidget(self.tabs)
         self.verticalLayout.addWidget(self.widget_2)
+        self.resultsWidget = QtGui.QWidget(self.centralwidget)
+        self.resultsWidget.setEnabled(False)
+        self.resultsWidget.setObjectName("resultsWidget")
+        self.horizontalLayout_3 = QtGui.QHBoxLayout(self.resultsWidget)
+        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.openLink = QtGui.QPushButton(self.resultsWidget)
+        self.openLink.setObjectName("openLink")
+        self.horizontalLayout_3.addWidget(self.openLink)
+        self.openFolder = QtGui.QPushButton(self.resultsWidget)
+        self.openFolder.setObjectName("openFolder")
+        self.horizontalLayout_3.addWidget(self.openFolder)
+        self.verticalLayout.addWidget(self.resultsWidget)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -121,4 +135,6 @@ class Ui_MainWindow(object):
         self.runner.setText(QtGui.QApplication.translate("MainWindow", "Executar", None, QtGui.QApplication.UnicodeUTF8))
         self.tabs.setTabText(self.tabs.indexOf(self.output_tab), QtGui.QApplication.translate("MainWindow", "Saída", None, QtGui.QApplication.UnicodeUTF8))
         self.tabs.setTabText(self.tabs.indexOf(self.error_tab), QtGui.QApplication.translate("MainWindow", "Erros", None, QtGui.QApplication.UnicodeUTF8))
+        self.openLink.setText(QtGui.QApplication.translate("MainWindow", "Abrir resultados no navegador", None, QtGui.QApplication.UnicodeUTF8))
+        self.openFolder.setText(QtGui.QApplication.translate("MainWindow", "Abrir pasta de saída", None, QtGui.QApplication.UnicodeUTF8))
 

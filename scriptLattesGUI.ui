@@ -112,7 +112,7 @@
                 <x>0</x>
                 <y>0</y>
                 <width>887</width>
-                <height>628</height>
+                <height>595</height>
                </rect>
               </property>
               <property name="sizePolicy">
@@ -153,7 +153,7 @@
                 <x>0</x>
                 <y>0</y>
                 <width>887</width>
-                <height>628</height>
+                <height>595</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -169,6 +169,32 @@
            </item>
           </layout>
          </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="resultsWidget" native="true">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <property name="margin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="openLink">
+         <property name="text">
+          <string>Abrir resultados no navegador</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="openFolder">
+         <property name="text">
+          <string>Abrir pasta de saída</string>
+         </property>
         </widget>
        </item>
       </layout>
