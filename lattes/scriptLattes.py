@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python 
 # encoding: utf-8
 #
 #
@@ -26,6 +26,8 @@ import sys
 import shutil
 import Levenshtein
 import os, errno
+import warnings
+warnings.filterwarnings('ignore')
 
 sys.path.append('scriptLattes')
 sys.path.append('scriptLattes/producoesBibliograficas/')
@@ -37,6 +39,7 @@ sys.path.append('scriptLattes/eventos/')
 sys.path.append('scriptLattes/charts/')
 sys.path.append('scriptLattes/internacionalizacao/')
 sys.path.append('scriptLattes/qualis/')
+sys.path.append('scriptLattes/patentesRegistros/')
 
 from grupo import *
 
@@ -52,20 +55,13 @@ if __name__ == "__main__":
 		novoGrupo.compilarListasDeItems() # obrigatorio
 		novoGrupo.identificarQualisEmPublicacoes() # obrigatorio
 		novoGrupo.calcularInternacionalizacao() # obrigatorio
-		novoGrupo.imprimirMatrizesDeFrequencia() 
+		#novoGrupo.imprimirMatrizesDeFrequencia() 
 
 		novoGrupo.gerarGrafosDeColaboracoes() # obrigatorio
-		print "[ROTULOS]"
-		print "- "+str(novoGrupo.listaDeRotulos)
-		print "- "+str(novoGrupo.listaDeRotulosCores)
-
 		novoGrupo.gerarGraficosDeBarras() # obrigatorio
 		novoGrupo.gerarMapaDeGeolocalizacao() # obrigatorio
 		novoGrupo.gerarPaginasWeb() # obrigatorio
-
-		novoGrupo.gerarXMLdeGrupo()
-		novoGrupo.gerarCSVdeQualisdeGrupo()
-		novoGrupo.gerarRISdeGrupo()
+		novoGrupo.gerarArquivosTemporarios() # obrigatorio
 
 		# copiar imagens e css
 		copiarArquivos(novoGrupo.obterParametro('global-diretorio_de_saida'))
@@ -77,7 +73,6 @@ if __name__ == "__main__":
 		print '    Jesus P. Mena-Chalco e Roberto M. Cesar-Jr.'
 		print '    scriptLattes: An open-source knowledge extraction system from the Lattes Platform.'
 		print '    Journal of the Brazilian Computer Society, vol.15, n.4, páginas 31-39, 2009.'
-
 		print '\n\nscriptLattes executado!'
 
 # ---------------------------------------------------------------------------- #
@@ -93,7 +88,7 @@ def compararCadeias(str1, str2, qualis=False):
 
 	if qualis:
 		dist = Levenshtein.ratio(str1, str2)
-		if len(str1)>=10 and len(str2)>=10 and dist>=0.80:
+		if len(str1)>=10 and len(str2)>=10 and dist>=0.90:
 			#return 1
 			return dist
 

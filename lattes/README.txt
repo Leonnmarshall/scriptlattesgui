@@ -1,5 +1,5 @@
-scriptLattes V8
------------------
+scriptLattes V8.09
+------------------
 
 SINOPSIS
 	scriptLattes.py <nome_arquivo_de_configuracao>
@@ -12,10 +12,9 @@ REQUISITOS
 EXECUÇÃO
 	Teste o scriptLattes com os seguintes exemplos de compilação na linha de comando:
 
-
 	(*) EXEMPLO 01:
-	$ cd <nome_diretorio_scriptLattes>
-	$ ./scriptLattes.py ./exemplo/teste-01.config
+	cd <nome_diretorio_scriptLattes>
+	python scriptLattes.py ./exemplo/teste-01.config
 
 	Nesse exemplo consideram-se todas as produções cujos anos de publicações
 	estão entre 2006 e 2012. Nenhum rótulo foi considerado para os membros. 
@@ -27,10 +26,9 @@ EXECUÇÃO
 	./exemplo/teste-01/
 
 
-
 	(*) EXEMPLO 02:
-	$ cd <nome_diretorio_scriptLattes>
-	$ ./scriptLattes.py ./exemplo/teste-02.config
+	cd <nome_diretorio_scriptLattes>
+	python scriptLattes.py ./exemplo/teste-02.config
 
 	Nesse exemplo consideram-se todas as produções cadastradas nos CVs Lattes.
 	São considerados rótulos para os membros do grupo (professor, colaborador, aluno)
@@ -54,6 +52,30 @@ URL DO PROJETO
 
 =========================================================================================
 LOG
+
+Seg Mar  3 08:42:28 BRT 2014
+-- A identificação de qualis foi melhorada. Os ISSN para os artigos completos
+  em periódicos agora estão sendo identificados. Também foi modificado o parser
+  para identificar melhor o título da publicação e nome da revista.
+
+Dom Mar  2 18:31:39 BRT 2014
+-- A rede de coautoria armazenada em formato GDF (gephi). 
+   Veja o arquivo 'rede.gdf' (automaticamente gerado)
+-- Foram melhorados alguns procedimentos de criação dos grafos.
+
+Seg Ago 26 03:09:50 BRT 2013
+-- Algumas melhoras no parser (<x<).
+-- Armazenamento das geolocalizações.
+
+Sex Jun 28 17:04:13 BRT 2013
+-- Um bug na criação do mapa de geolocalização foi consertado.
+
+Wed May 29 12:24:23 BRT 2013
+-- Criação do arquivo de colaboradores
+
+Qui Mai  2 22:03:37 BRT 2013
+-- A lista de Prêmios e títulos é avaliada de forma individual (i.e., não é
+   identificada coautoria na lista de Prêmios e títulos).
 
 Dom Abr 14 12:32:54 BRST 2013
 -- Foi corrigida a função de localização geográfica.

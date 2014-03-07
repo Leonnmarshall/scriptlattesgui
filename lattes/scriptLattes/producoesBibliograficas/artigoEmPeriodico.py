@@ -43,8 +43,9 @@ class ArtigoEmPeriodico:
 	ano = None
 	resto = None
 	chave = None
+	issn = None
 
-	def __init__(self, idMembro, partesDoItem='', doi='', relevante=''):
+	def __init__(self, idMembro, partesDoItem='', doi='', relevante='', complemento=[]):
 		self.idMembro = set([])
 		self.idMembro.add(idMembro)
 
@@ -97,10 +98,14 @@ class ArtigoEmPeriodico:
 				self.volume = partes[2].strip().rstrip(",")
 				partes = partes[0]
 
-			partes = partes.partition(". ")
-			#partes = partes.rpartition(". ")
-			self.titulo = partes[0].strip()
-			self.revista = partes[2].strip()
+			p1 = partes.partition(". ")
+			p2 = partes.rpartition(". ")
+			if len(p1[0])>len(p2[2]):
+				self.titulo = p2[0].strip()
+				self.revista = p2[2].strip()
+			else:
+				self.titulo = p1[0].strip()
+				self.revista = p1[2].strip()
 
 			self.chave = self.autores # chave de comparação entre os objetos
 
@@ -114,7 +119,21 @@ class ArtigoEmPeriodico:
 			self.paginas = ''
 			self.numero = ''
 			self.ano = ''
+			self.issn = ''
 
+		# usando os dados complementares (obtidos do div/cvuri)
+		complemento = complemento.replace(" & "," <AMPERSAND> ")
+		complemento = complemento.split("&")
+
+		for parametro in complemento:
+			partes = parametro.split("=")
+			parametroNome  = partes[0].strip()
+			parametroValor = partes[1].strip()
+			parametroValor = parametroValor.replace("<AMPERSAND>","&")
+			if parametroNome=="issn"   : self.issn   = parametroValor
+			if parametroNome=="volume" : self.volume = parametroValor
+			if parametroNome=="titulo" : self.titulo = parametroValor
+			if parametroNome=="nomePeriodico": self.revista = parametroValor
 
 	def compararCom(self, objeto):
 		if self.idMembro.isdisjoint(objeto.idMembro) and compararCadeias(self.titulo, objeto.titulo):
@@ -142,6 +161,9 @@ class ArtigoEmPeriodico:
 
 			if len(self.numero)<len(objeto.numero):
 				self.numero = objeto.numero
+			
+			if len(self.issn)<len(objeto.issn):
+				self.issn = objeto.issn
 
 			return self
 		else: # nao similares
@@ -169,6 +191,7 @@ class ArtigoEmPeriodico:
 		s+= 'v. ' + self.volume + ', '  if not self.volume==''  else ''
 		s+= 'n. ' + self.numero + ', '  if not self.numero== '' else ''
 		s+= 'p. ' + self.paginas + ', ' if not self.paginas=='' else ''
+		s+= 'issn: ' + self.issn + ', ' if not self.issn==''    else ''
 		s+= str(self.ano) + '.'         if str(self.ano).isdigit() else '.'
 
 		if not self.doi=='':
@@ -198,6 +221,7 @@ class ArtigoEmPeriodico:
 		s+= '\nEP  - '+p2
 		s+= '\nPY  - '+str(self.ano)
 		s+= '\nL2  - '+self.doi
+		s+= '\nL3  - '+self.issn
 		s+= '\nER  - '
 		return s
 
@@ -223,5 +247,6 @@ class ArtigoEmPeriodico:
 		s += "+VOLUME      : " + self.volume.encode('utf8','replace') + "\n"
 		s += "+NUMERO      : " + self.numero.encode('utf8','replace') + "\n"
 		s += "+ANO         : " + str(self.ano) + "\n"
+		s += "+ISSN        : " + str(self.issn) + "\n"
 		s += "+item        : " + self.item.encode('utf8','replace') + "\n"
 		return s
