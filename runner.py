@@ -78,8 +78,35 @@ sys.path.append(BASE + 'internacionalizacao')
 sys.path.append(BASE + 'qualis')
 sys.path.append(BASE + 'patentesRegistros')
 
+
 from grupo import *
-#print u'\xe1'
+
+
+if 'win' in sys.platform.lower():
+    os.environ['PATH'] += ";" + os.path.abspath(os.curdir + '\\Graphviz2.36\\bin')
+
+class OutputStream:
+    def __init__(self, output):
+        self.output = output
+    def write(self, text):
+        try:
+            text = text.decode('utf8').encode('iso-8859-1')
+        except:
+            try:
+                text = text.encode('iso-8859-1')
+            except:
+                pass
+        try:
+            self.output.write(text)
+        except:
+            try:
+                self.output.write(unicode(text))
+            except:
+                self.output.write('ERRO na impressao')
+            
+sys.stdout = OutputStream(sys.stdout)
+sys.stderr = OutputStream(sys.stderr)
+
 def copy_files(dir):
 	base = ABSBASE
 	shutil.copy2(base + 'css'+SEP+'scriptLattes.css', dir)
