@@ -59,6 +59,8 @@ import sys
 import shutil
 import Levenshtein
 import os, errno
+import warnings
+warnings.filterwarnings('ignore')
 
 SEP = os.path.sep
 BASE = 'lattes' + SEP + 'scriptLattes' + SEP
@@ -74,9 +76,10 @@ sys.path.append(BASE + 'eventos')
 sys.path.append(BASE + 'charts')
 sys.path.append(BASE + 'internacionalizacao')
 sys.path.append(BASE + 'qualis')
+sys.path.append(BASE + 'patentesRegistros')
 
 from grupo import *
-
+#print u'\xe1'
 def copy_files(dir):
 	base = ABSBASE
 	shutil.copy2(base + 'css'+SEP+'scriptLattes.css', dir)
@@ -88,8 +91,8 @@ def copy_files(dir):
 	shutil.copy2(base + 'imagens'+SEP+'doi.png', dir)
 	print "Arquivos salvos em: >>'%s'<<" % os.path.abspath(dir)
 
-if __name__ == "__main__":
-	arquivoConfiguracao = sys.argv[1]
+def run(filepath):
+	arquivoConfiguracao = filepath
 	os.chdir( os.path.abspath(os.path.join(arquivoConfiguracao, os.pardir)))
 	novoGrupo = Grupo(arquivoConfiguracao)
 	novoGrupo.imprimirListaDeParametros()
@@ -100,20 +103,13 @@ if __name__ == "__main__":
 		novoGrupo.compilarListasDeItems() # obrigatorio
 		novoGrupo.identificarQualisEmPublicacoes() # obrigatorio
 		novoGrupo.calcularInternacionalizacao() # obrigatorio
-		novoGrupo.imprimirMatrizesDeFrequencia()
+		#novoGrupo.imprimirMatrizesDeFrequencia() 
 
 		novoGrupo.gerarGrafosDeColaboracoes() # obrigatorio
-		print "[ROTULOS]"
-		print "- "+str(novoGrupo.listaDeRotulos)
-		print "- "+str(novoGrupo.listaDeRotulosCores)
-
 		novoGrupo.gerarGraficosDeBarras() # obrigatorio
 		novoGrupo.gerarMapaDeGeolocalizacao() # obrigatorio
 		novoGrupo.gerarPaginasWeb() # obrigatorio
-
-		novoGrupo.gerarXMLdeGrupo()
-		novoGrupo.gerarCSVdeQualisdeGrupo()
-		novoGrupo.gerarRISdeGrupo()
+		novoGrupo.gerarArquivosTemporarios() # obrigatorio
 
 		# copiar imagens e css
 		copy_files(novoGrupo.obterParametro('global-diretorio_de_saida'))
@@ -128,37 +124,5 @@ if __name__ == "__main__":
 
 		print '\n\nscriptLattes executado!'
 
-# ---------------------------------------------------------------------------- #
-def compararCadeias(str1, str2, qualis=False):
-	str1 = str1.strip().lower()
-	str2 = str2.strip().lower()
-
-	if len(str1)==0 or len(str2)==0:
-		return 0
-
-	if len(str1)>=20 and len(str2)>=20 and (str1 in str2 or str2 in str1):
-		return 1
-
-	if qualis:
-		dist = Levenshtein.ratio(str1, str2)
-		if len(str1)>=10 and len(str2)>=10 and dist>=0.80:
-			#return 1
-			return dist
-
-	else:
-		if len(str1)>=10 and len(str2)>=10 and Levenshtein.distance(str1, str2)<=5:
-			return 1
-	return 0
-
-def criarDiretorio(dir):
-	if not os.path.exists(dir):
-		try:
-			os.makedirs(dir)
-		### except OSError as exc:
-		except:
-			print "\n[ERRO] Não foi possível criar ou atualizar o diretório: "+dir.encode('utf8')
-			print "[ERRO] Você conta com as permissões de escrita? \n"
-			return 0
-	return 1
-
-
+if __name__ == "__main__":
+    run(sys.argv[1])

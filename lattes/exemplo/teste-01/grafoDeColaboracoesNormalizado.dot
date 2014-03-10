@@ -1,5 +1,0 @@
-strict digraph grafo3 {
-	graph [bb="0,0,120,18", id=grafo3, overlap=False];
-	node [label="\N", fontsize=8, shape=rectangle, style=filled];
-	0 [label="Jesús P. Mena Chalco [0]", URL="http://lattes.cnpq.br/4727357182510680", color="#17272B", fontcolor="#FFFFFF", height="0.25", pos="60,9", width="1.6667"];
-}
